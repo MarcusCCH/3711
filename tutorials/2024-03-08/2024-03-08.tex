@@ -1,0 +1,41 @@
+%!TEX root  = 2024-03-08.tex
+\documentclass[../../main/main.tex]{subfiles}
+\begin{document}
+\subsection{Tutorial 1 - Asymptotic notation}
+\begin{enumerate}
+	\item \begin{enumerate}
+		      \item  true
+		      \item false
+		      \item true
+		      \item false
+		      \item false
+		      \item false
+		      \item true
+	      \end{enumerate}
+	\item \begin{enumerate}
+		      \item true
+		      \item false
+		      \item false
+	      \end{enumerate}
+	\item \begin{enumerate}
+		      \item yes
+		      \item no.
+
+                let $T_{i}(n) = i \cdot n$ and $f(n) = n$
+		            \begin{align*}
+			            g(n) & = \frac{n(n+1)}{2} \cdot f(n) \\
+			                 & = O(n^2f(n)) \\
+                       & = O(n^3)
+			            .\end{align*}
+                  \[
+                    \therefore g(n) \neq O(f(n)) \text{and }\neq O(n(f(n))
+                  .\] 
+
+                note: this is because
+                \[
+                \sum^{n}_{i=1}  O(f(n)) \neq  O(\sum^{n}_{i=1} f(n))
+                .\] 
+	      \end{enumerate}
+\end{enumerate}
+
+\end{document}

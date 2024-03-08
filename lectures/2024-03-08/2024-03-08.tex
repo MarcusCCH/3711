@@ -1,0 +1,190 @@
+%!TEX root  = 2024-03-08.tex
+\documentclass[../../main/main.tex]{subfiles}
+\begin{document}
+\subsection {Lecture 1 - Asymptotic Notation}
+
+\begin{theorem}
+	Upper bounds $T(n) = O(f(n))$.
+
+	if exists constants $c > 0$ and $n_{0}$ such that $\forall n\ge n_{0}$, $T(n) \le c \cdot f(n)$
+\end{theorem}
+
+\begin{theorem}
+	Lower bounds $T(n) = \Omega(f(n))$
+
+	if exists constants $c > 0$ and $n_{0}$ such that $\forall n\ge n_{0}$, $T(n) \ge  c \cdot f(n)$
+\end{theorem}
+\begin{theorem}
+	Tight bounds $T(n) = \Theta(f(n))$
+
+	if $T(n) = O(f(n))$ and  $T(n) = \Omega(f(n))$
+\end{theorem}
+
+constant $ 9999^{9999^{9999}}<$ logarithmic $\log^{10} n < $ polynomial $n^{0.1} < n \log n < n^2$ $<$ exponential $2^{n}$
+
+\begin{enumerate}
+	\item $9999^{99999^{9999}} = \Theta(1) = O(log(log(n)))$
+	\item $log(log(n)) &= O(log n)$
+	\item $n^{100} &= O(2^{n})$
+	      Let $n^{100} = c \cdot 2^{n}$ s.t. for $ n \ge  n_{0} n^{100} \le c\cdot 2^{n}$
+
+	      \begin{align*}
+		      100 * \log(n) & = c \cdot n \log (2)      \\
+		      n             & = \frac{100}{c} * \log(n) \\
+		      .\end{align*}
+	      $\therefore \forall c, n^{100} = O(2^{n}) $
+\end{enumerate}
+
+\begin{theorem} Common expressions
+	\begin{enumerate}
+		\item $max(f(n), g(n)) = \Theta(f(n) + g(n))$
+		\item $\log\sqrt{n} = \Omega(\sqrt{\log(n)} ) $
+		\item $\log(2^{n}) = \Theta(\log(3^{n}))$
+		\item $\sum^{n}_{i=1} \frac{1}{i} = \Theta(\log n)$
+	\end{enumerate}
+\end{theorem}
+\newpage
+\subsubsection {Lecture 2 - Running time of sorting}
+\subsubsection{Selection sort}
+\begin{algorithm}[H]
+	\caption{Selection sort}\label{alg:cap}
+	\begin{algorithmic}
+		\For{$i \gets 1$ to  $n$}
+		\For{$j \gets i+1$ to $n$}
+		\If{$A[j] < A[i]$}
+		\State swap $A[j], A[i]$
+		\EndIf
+		\EndFor
+
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+number of comparisons : $\sum^{n}_{i=1} (n-i) = \sum^{n-1}_{i=1}  = \frac{n(n-1)}{2}$
+
+\begin{theorem}
+	Correctness of selection sort
+
+	Prove by induction. Assume the algorithnm sorts every array of size n-1 correctly.
+	\begin{enumerate}
+		\item It first pusts the smallest item in $A[1]$
+		\item then runs selection sort on  $A[2\ldots n]$ (by induction this is correct)
+		\item since $A[1]$ is smaller than every other items, the array is sorted
+	\end{enumerate}
+\end{theorem}
+
+\subsubsection{Insertion sort}
+\begin{algorithm}[H]
+	\caption{Insertion sort}
+	\begin{algorithmic}
+		\For{$i \gets 2$ to  $n$}
+		\State $j \gets i-1$
+		\While{$j \ge 1$ and $A[j] > A[j+1]$}
+		\State \texttt{swap $A[j]$ and $A[j+1]$}
+		\State \texttt{$j \gets j - 1$}
+		\EndWhile
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+\begin{enumerate}
+	\item	      number of comparisons : $\sum^{n}_{i=1} (i-1) &= \sum^{n-1}_{k=1} k &= \frac{n(n-1)}{2}$
+	\item average case analysis: only half of the keys are compared
+	\item best case: on sorted data, takes $O(n)$ time
+
+\end{enumerate}
+
+\begin{theorem}
+	Comparison of running time
+	\begin{enumerate}
+		\item $O(\log n)$ U $\Theta(2^{\log_{2}\log_{2} n} )$
+		\item $O(n^{4})$ U $O(n^{3})$
+	\end{enumerate}
+\end{theorem}
+\begin{exercise}
+	Prove that $\log(n!) = \Theta(n\log n)$
+	\begin{enumerate}
+		\item first, prove $\log(n!) = O(n\log n)$
+		      \begin{align*}
+			      \log(n!) & =  \sum^{n}_{i=1} \log(i)   \\
+			               & \le \sum^{n}_{i=1}  \log(n) \\
+			               & = O(n\log n)
+			      .\end{align*}
+		\item then, prove $\log(n!) = \Omega(n\log n)$
+		      \begin{align*}
+			      \log(n!) & =  \sum^{n}_{i=1} \log(i)                       \\
+			               & \ge \sum^{n}_{i=\frac{n}{2}}  \log(i)           \\
+			               & \ge \sum^{n}_{i=\frac{n}{2}}  \log(\frac{n}{2}) \\
+			               & = \frac{n}{2}\log \frac{n}{2}                   \\
+			               & = \frac{n}{2}(\log n - \log2)                   \\
+			               & = \Omega(n\log n)
+			      .\end{align*}
+		      $\therefore \log(n!) = \Theta(n\log n)$
+	\end{enumerate}
+\end{exercise}
+\newpage
+\subsubsection{Lecture 3 - Divide and conquer}
+\begin{theorem}
+	Run time analysis of Binary search
+
+	\begin{align*}
+		T(n) & = T(\frac{n}{2}) + 2  \; \text{if $n > 1$, with $T(1) = 1$} \\
+		     & = T(\frac{n}{2^2} + 2) + 2                                  \\
+		     & = \ldots                                                    \\
+		     & = T(\frac{n}{2^{\log_{2}n}})  + 2\log_2n                    \\
+		     & = 1 + 2\log_{2}n
+		.\end{align*}
+\end{theorem}
+
+Examples
+\begin{enumerate}
+	\item Rotated sorted array
+	\item Find the last 0
+\end{enumerate}
+
+\begin{algorithm}[H]
+	\caption{Tower of hanoi(n, peg1, peg2, peg3)}
+	\begin{algorithmic}[1]
+		\If{n=0}
+		\texttt{do something}
+		\Else
+		\State \texttt{Tower of hanoi(n-1, peg1, peg2, peg3)} \Comment{T(n-1)}
+		\State \texttt{move the only disc from peg 1 to peg 3} \Comment{T(1)}
+
+		\State\texttt{Tower of hanoi(n-1, peg2, peg1, peg3)} \Comment{T(n-1)}
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{theorem}
+	Recurrence of Tower of hanoi:
+	\begin{align*}
+		T(n) & = 2T(n-1) + 1                                              \\
+		     & = 2(2T(n-2) + 1) + 1                                       \\
+		     & = \ldots                                                   \\
+		     & = 2^{n-1}T(1) +  2^{n-2} + 2^{n-3}  + \ldots + 2^2 + 2 + 1 \\
+		     & = 2^{n} - 1
+		.\end{align*}
+
+\end{theorem}
+\begin{algorithm}[H]
+	\caption{Merge sort(A, l, r)}
+	\begin{algorithmic}[1]
+		\If{$l = r$}
+		\texttt{return}
+		\Else
+		\State mid $\gets \frac{l+r}{2}$
+		\State \texttt{Merge Sort(A, l, mid)} \Comment{T($\frac{n}{2}$)}
+		\State \texttt{Merge Sort(A, mid+1, r)} \Comment{T($\frac{n}{2}$)}
+		\State \texttt{Merge(A, l, mid, r)} \Comment{O(n)}
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+\begin{theorem}
+	Analysis of merge sort
+	\begin{align*}
+		T(n) & \le  T(\left\lfloor \frac{n}{2} \right\rfloor) + T(\left\lceil \frac{n}{2} \right\rceil ) + O(n)                                 \\
+		     & = 2^{i}T(\frac{n}{2^{i}}) + in                                                                   &  & \text{where $i = \log_2n$} \\
+		     & = n\log_2n + n
+		.\end{align*}
+\end{theorem}
+
+\end{document}
