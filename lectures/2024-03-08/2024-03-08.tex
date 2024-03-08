@@ -44,7 +44,7 @@ constant $ 9999^{9999^{9999}}<$ logarithmic $\log^{10} n < $ polynomial $n^{0.1}
 	\end{enumerate}
 \end{theorem}
 \newpage
-\subsubsection {Lecture 2 - Running time of sorting}
+\subsection {Lecture 2 - Running time of sorting}
 \subsubsection{Selection sort}
 \begin{algorithm}[H]
 	\caption{Selection sort}\label{alg:cap}
@@ -121,7 +121,7 @@ number of comparisons : $\sum^{n}_{i=1} (n-i) = \sum^{n-1}_{i=1}  = \frac{n(n-1)
 	\end{enumerate}
 \end{exercise}
 \newpage
-\subsubsection{Lecture 3 - Divide and conquer}
+\subsection{Lecture 3 - Divide and conquer}
 \begin{theorem}
 	Run time analysis of Binary search
 
@@ -144,7 +144,7 @@ Examples
 	\caption{Tower of hanoi(n, peg1, peg2, peg3)}
 	\begin{algorithmic}[1]
 		\If{n=0}
-		\texttt{do something}
+		\texttt{return}
 		\Else
 		\State \texttt{Tower of hanoi(n-1, peg1, peg2, peg3)} \Comment{T(n-1)}
 		\State \texttt{move the only disc from peg 1 to peg 3} \Comment{T(1)}
@@ -174,7 +174,7 @@ Examples
 		\State mid $\gets \frac{l+r}{2}$
 		\State \texttt{Merge Sort(A, l, mid)} \Comment{T($\frac{n}{2}$)}
 		\State \texttt{Merge Sort(A, mid+1, r)} \Comment{T($\frac{n}{2}$)}
-		\State \texttt{Merge(A, l, mid, r)} \Comment{O(n)}
+		\State \texttt{Merge(A, l, mid, r)} \C ;omment{O(n)}
 		\EndIf
 	\end{algorithmic}
 \end{algorithm}
@@ -186,5 +186,131 @@ Examples
 		     & = n\log_2n + n
 		.\end{align*}
 \end{theorem}
+
+\subsubsection{Inversion number}
+\begin{definition}{Inversion number}
+
+	Given an array $A[1..n]$, two elements $A[i]$ and  $A[j]$ are inverted if $i<j$ but  $A[i] > A[j]$
+
+\end{definition}
+\begin{algorithm}
+	\floatname{algorithm}{Algorithm}
+	\algrenewcommand\algorithmicrequire{\textbf{Input: }}
+	\algrenewcommand\algorithmicensure{\textbf{Output: }}
+	\caption{Count number of inversion}
+	\label{alg:}
+	\begin{algorithmic}[1]
+		\Require $A,p,q,r$
+		\Ensure $c$
+		\State L $\gets A[p\ldots q]$ and R $\gets A[q \ldots r]$
+		\State c $\ gets 0$
+		\While{$i \gets 0 \le  p-q+1$ and $j \le  r-q$}
+		\If{$L[i] \le  R[i]$}
+		\State $i \gets i+1$
+		\Else
+		\State $I[j] = q - p - i + 2 $
+		\State  $c \gets c + I[j]$
+		\State  $j \gets j+1$
+		\EndIf
+		\EndWhile
+		\State \textbf{return} $state$
+	\end{algorithmic}
+\end{algorithm}
+
+Reccurence $T(n) = 2T(\frac{n}{2}) + n$
+
+
+% \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}[H]
+	\floatname{algorithm}{Algorithm}
+	\algrenewcommand\algorithmicrequire{\textbf{Input: }}
+	\algrenewcommand\algorithmicensure{\textbf{Output: }}
+	\caption{Sort and count}
+	\label{alg:}
+	\begin{algorithmic}[1]
+		\Require $A, p, r$
+		\Ensure $c$
+		\If{$p &=  r \\$}
+		\State return 0
+		\EndIf
+		\State $c_{1} \gets \Call{sort-and-count}{A,p,q}$
+		\State $c_{2} \gets \Call{sort-and-count}{A,q+1,r}$
+		\State $c_{3} \gets \Call{merge-and-count}{A,p,q, r}$
+		\State \textbf{return} $c_1 + c_2 + c_3$
+	\end{algorithmic}
+\end{algorithm}
+% \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}[H]
+	\floatname{algorithm}{Algorithm}
+	\algrenewcommand\algorithmicrequire{\textbf{Input: }}
+	\algrenewcommand\algorithmicensure{\textbf{Output: }}
+	\caption{Merge and count}
+	\label{alg:}
+	\begin{algorithmic}[1]
+		\Require $A,p,q,r$
+		\Ensure $c$
+
+		\State L $\gets A[p\ldots q]$ and R $\gets A[q \ldots r]$
+		\State c $\gets 0$
+		\For{$k \gets p $ to  $r$}
+		\If{$L[i] \le  R[i]$}
+		\State $A[k] \gets L[i]$
+		\State $i \gets i+1$
+		\Else
+		\State $A[k] \gets R[j]$
+		\State $I[j] = q - p - i + 2 $
+		\State  $c \gets c + I[j]$
+		\State  $j \gets j+1$
+		\EndIf
+		\EndFor
+		\State \textbf{return} $c$
+	\end{algorithmic}
+\end{algorithm}
+\subsubsection{Subarray}
+\begin{enumerate}
+	\item Maximum subarray (D&C v.s. Kadane's algorithm)
+\end{enumerate}
+
+
+% \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}[H]
+	\floatname{algorithm}{Algorithm}
+	\algrenewcommand\algorithmicrequire{\textbf{Input: }}
+	\algrenewcommand\algorithmicensure{\textbf{Output: }}
+	\caption{Kadane's algorithm}
+	\label{alg:}
+	\begin{algorithmic}[1]
+		\Require $input$
+		\Ensure $output$
+		\State $V \gets 0$
+		\State $ maxi \gets -\infty$
+		\For{$i \gets 1 $ to  $n$}
+		\State $V \gets V + A[i]$
+		\If{$V < A[i]$}
+		\State $V = A{i]}$
+		\EndIf
+		\If{$V > maxi$}
+		\State $maxi = A{i]}$
+		\EndIf
+
+		\EndFor
+		\State \textbf{return} $state$
+	\end{algorithmic}
+\end{algorithm}
+
+
+\subsubsection{Integer multiplication}
+\begin{theorem}
+	Karatsuba Multiplication
+
+
+	Let $ a = a_{1}2^{\frac{n}{2}} + a_0$ and  $b = b_{1}2^{\frac{n}{2}} + b_0$
+	\begin{align*}
+		ab            & =  a_1b_{1}2^{n}  + (a_1b_0 + a_0b_1)2^{\frac{n}{2}} + a_0b_0                                                                                      \\
+		a_1b_0+a_0b_1 & =                                                             (a_0+a_1)\cdot (b_0+b_1) - a_0b_0 - a_1b_1 &  & \text{(reduce to 3 multiplications)} \\
+		.\end{align*}
+	$\implies T(n) &=  3T(\frac{n}{2}) + n$
+\end{theorem}
+
 
 \end{document}

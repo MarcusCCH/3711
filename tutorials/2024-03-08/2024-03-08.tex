@@ -21,21 +21,41 @@
 		      \item yes
 		      \item no.
 
-                let $T_{i}(n) = i \cdot n$ and $f(n) = n$
+		            let $T_{i}(n) = i \cdot n$ and $f(n) = n$
 		            \begin{align*}
 			            g(n) & = \frac{n(n+1)}{2} \cdot f(n) \\
-			                 & = O(n^2f(n)) \\
-                       & = O(n^3)
+			                 & = O(n^2f(n))                  \\
+			                 & = O(n^3)
 			            .\end{align*}
-                  \[
-                    \therefore g(n) \neq O(f(n)) \text{and }\neq O(n(f(n))
-                  .\] 
+		            \[
+			            \therefore g(n) \neq O(f(n)) \text{and }\neq O(n(f(n))
+			            .\]
 
-                note: this is because
-                \[
-                \sum^{n}_{i=1}  O(f(n)) \neq  O(\sum^{n}_{i=1} f(n))
-                .\] 
+		            note: this is because
+		            \[
+			            \sum^{n}_{i=1}  O(f(n)) \neq  O(\sum^{n}_{i=1} f(n))
+			            .\]
 	      \end{enumerate}
+\end{enumerate}
+
+\subsection{Tutorial 2 - Divide and conquer}
+
+\begin{enumerate}
+	\item done
+	\item done
+	\item
+	      find the median. If k $>$ median, then remove all i from A s.t where A[i] $<$ median, vice versa.
+	      Time complexity: $\frac{n}{2} + \frac{n}{4} + \ldots  + \frac{n}{n} = \frac{(\frac{1}{2})^{\log_2\frac{n}{2}} - 1}{\frac{1}{2}-1} \cdot \frac{n}{2} = \frac{\frac{1}{\frac{n}{2}} - 1}{\frac{1}{2}-1}\cdot \frac{n}{2} = \frac{1 - \frac{n}{2}}{\frac{1}{2}-1}$ = $O(n)$
+	\item
+	      find the median $x_k$ and then  $w = \sum^{n}_{i=k} w_k $. W.L.O.G, if  $w > \frac{1}{2}$, then our solution $j > k$. Remove $A[i]$ such that $i < k$. Set $w_k = w_k + 1- w$. If $w < \frac{1}{2}$, remove all $A[j]$ where  $j > k$. Set $w_k = w$. Continue the recursion.  The time complexity will be $O(n)$ (analysis the same as Q3)
+\end{enumerate}
+
+\subsection{Tutorial 3 - Divide and conquer}
+\begin{enumerate}
+	\item done
+	\item take a pivot. check which side is larger. Take the larger side. If all elements in one side is the same and len $> \frac{n}{2}$ then we have our answer. Recurse until both sides have len $ < n/2 $
+  \item 
+    example: {5, -10, -10, 0, 60}
 \end{enumerate}
 
 \end{document}
