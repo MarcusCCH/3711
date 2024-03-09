@@ -55,5 +55,28 @@ when $f(n) = O(n)$
   .\end{align*}
 \end{enumerate}
 
+\subsection{Lecture 5 - Randomized algorithms}
+\begin{exercise}
+  \begin{align*}
+    S= \sum^{\infty}_{i=1} i(1-p)^{i-1} &= \sum^{\infty}_{j=0} (j+1)(k)^{j}\\
+    kS &=    \sum^{\infty}_{j=1} (j+1)(k)^{j} && (1)\\
+    S-kS &= 1+ k + k^{2} + k^3 + \ldots = \frac{1}{1-k} && (2)\\
+    S &=  \frac{1}{(1-k)^2}\\
+  .\end{align*}
+\end{exercise}
+\begin{exercise}[Coupon collector]
+  \begin{align*}
+    P(i) &=  \frac{n-i}{n}\\
+    E[x_i] &= \frac{1}{P(i)} \\
+    E[X]&= \sum^{n-1}_{i=1}  E[x_i]  \\
+    &= n \sum^{n}_{i=1} \frac{1}{i} \\
+    &= \Theta(n \log n) \\
+  .\end{align*}
+\end{exercise}
+\begin{enumerate}
+  \item hiring problem
+  \item birthday paradox
+  \item generate random permutation (with proof)
+\end{enumerate}
 \end{document}
 

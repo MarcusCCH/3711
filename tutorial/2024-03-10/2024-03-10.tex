@@ -1,0 +1,37 @@
+%TEX root = 2024-03-10.tex
+\documentclass[../../main/main.tex]{subfiles}
+\begin{document}
+\subsection{Tutorial 4 - Randomized algorithm}
+\begin{enumerate}
+  \item \begin{enumerate}
+    \item  probability that you hire exactly one person
+      \begin{align*}
+        P(\texttt{one person}) &= \sum^{n}_{i=1} \frac{1}{i} \\
+        &= O(n\log n) \\
+      .\end{align*}
+      correct answer: $\frac{1}{n}$
+    \item  probability that you hire exactly n person
+      \begin{align*}
+        P(\texttt{n person}) &= \prod^{n}_{i=1} \frac{1}{i} \\
+        &= \frac{1}{n!} \\
+      .\end{align*}
+  \end{enumerate}
+\item 
+  Let $x_i=1$ when the hat is correct
+  \begin{align*}
+    E[x_i] &= P[x_i] \\ 
+           &= \frac{n-i}{n} && \texttt{correct answer: $\frac{1}{n}$}\\
+    E[x] &= \sum^{n}_{i=1} E[x_i] \\
+         &= O(n \log n) && \texttt{correct answer: 1}\\
+  .\end{align*}
+\item 
+  Let $x_{i,j}= 1$ when $A[i] > A[j]$
+  \begin{align*}
+    E[x_{i,j}] &= \frac{1}{2} \\
+    E[x] &=  \frac{{n \choose 2}}{2} \\
+    &= \frac{n(n-1)}{4} \\
+  .\end{align*}
+
+\end{enumerate}
+
+\end{document}
