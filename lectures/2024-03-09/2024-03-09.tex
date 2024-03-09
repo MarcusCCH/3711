@@ -78,5 +78,60 @@ when $f(n) = O(n)$
   \item birthday paradox
   \item generate random permutation (with proof)
 \end{enumerate}
+\subsection{Lecture 6 - Quick Sort}
+\subsubsection{Intro to algo}
+\begin{algorithm}[H]
+  \floatname{algorithm}{Algorithm}
+  \algrenewcommand\algorithmicrequire{\textbf{Input: }}
+  \algrenewcommand\algorithmicensure{\textbf{Output: }}
+  \caption{Quicksort}\label{alg:}
+  \begin{algorithmic}[1]
+    \Require $A,p,q,r$
+    \Ensure $1$
+    \If{$p \ge r$}
+    \State{\texttt{return}}
+    \EndIf
+    \State $q = \Call{partition}{A,p,r}$
+    \State $\Call{quicksort}{A,p,q-1}$
+    \State $\Call{quicksort}{A,q+1, r}$
+    \State \textbf{return} $state$
+  \end{algorithmic}
+\end{algorithm}
+% \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}[H]
+  \floatname{algorithm}{Algorithm}
+  \algrenewcommand\algorithmicrequire{\textbf{Input: }}
+  \algrenewcommand\algorithmicensure{\textbf{Output: }}
+  \caption{Partition}\label{alg:}
+  \begin{algorithmic}[1]
+    \Require $A,p,r$
+    \Ensure $q$
+    \State $i \gets p-1$
+    \For{$j \gets p$ to $r-1$}
+    \If{$A[j] \le x$}
+    \State $i \gets i+1$
+    \State $\Call{swap}{A[i], A[j]}$
+    \EndIf
+    \EndFor
+    \State \textbf{return} $i$
+  \end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Run time analysis}
+\begin{enumerate}
+  \item best case: $O(\log n)$
+  \item worse case: $O(n^2)$
+\end{enumerate}
+
+\pvocab{Average run-time of quicksort.}
+To attain average case, randomly select the pivot. Let $p(x_{i,j})$ be the probability that $z_i$ and $z_j$ are compared
+\begin{align*}
+  p(x_{i,j}) &= \frac{1}{j-i+1} \\
+  E[X]&= \sum^{n}_{i=1} 2\cdot p(x_{i,j}) && \texttt{$z_{i}$ and $z_j$ are symmetric}\\ 
+  &= O(n \log n) \\
+.\end{align*}
+\begin{exercise}[k-smallest element in union of two sorted lists]
+  
+\end{exercise}
 \end{document}
 
