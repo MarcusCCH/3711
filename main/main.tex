@@ -1,3 +1,4 @@
+%TEX root = main.tex
 \documentclass[14pt]{article}
 \usepackage{subfiles}
 \usepackage{fancyhdr}
@@ -8,7 +9,7 @@
 \usepackage{color}
 \usepackage{tcolorbox}
 \usepackage{tikz}
-\usepackage{pgfplots}
+% \usepackage{pgfplots}
 \usepackage{amsmath,amsthm,amssymb,amsfonts}
 \usepackage{graphicx}
 \usepackage{subcaption}
@@ -95,16 +96,6 @@
 ]{thmblackbox}
 
 
-\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
-\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
-\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
-\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
-\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
-\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
-
-\declaretheorem[%
-style=thmblackbox,name=Algorithm,sibling=theorem]{algo}
-
 \mdfdefinestyle{mdgreenbox}{%
 	skipabove=8pt,
 	linewidth=2pt,
@@ -123,6 +114,18 @@ style=thmblackbox,name=Algorithm,sibling=theorem]{algo}
 	mdframed={style=mdgreenbox},
 	headpunct={ --- },
 ]{thmgreenbox}
+
+\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
+\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+\declaretheorem[style=thmblackbox,name=Exercise,sibling=theorem]{exercise}
+\declaretheorem[style=thmgreenbox,name=Remark,sibling=theorem]{remark}
+
+\declaretheorem[%
+style=thmblackbox,name=Algorithm,sibling=theorem]{algo}
+
 
 % \theoremstyle{theorem}
 % \declaretheorem[name=Remark,sibling=theorem,style=thmgreenbox]{remark}
@@ -187,6 +190,8 @@ style=thmblackbox,name=Algorithm,sibling=theorem]{algo}
 
 \section{Lectures}
 \subfile{../lectures/2024-03-08/2024-03-08}
+
+\subfile{../lectures/2024-03-09/2024-03-09}
 %end lectures
 \newpage
 

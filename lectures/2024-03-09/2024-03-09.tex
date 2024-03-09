@@ -1,0 +1,59 @@
+%TEX root = 2024-03-09.tex
+\documentclass[../../main/main.tex]{subfiles}
+\begin{document}
+\subsection{Lecture 4 - Master theorem}
+
+\subsubsection{intro}
+$T(n) = aT(\frac{n}{b}) + f(n)$
+\begin{enumerate}
+  \item $f(n) = n^{c + \epsilon}$ then $T(n) = \Theta(n^c)$ 
+  \item $f(n) = n^{c}$  then $T(n) = O(n^{c}\logn)$
+  \item $f(n) = n^{c - \epsilon}$, then $T(n) = \Omega(f(n)))$
+\end{enumerate}
+
+\subsubsection{inequality}
+$T(n) = aT(\frac{n}{b}) + f(n)$
+\begin{enumerate}
+  \item $f(n) = O(n^{c + \epsilon})$ then $T(n) = O(n^c)$ 
+  \item $f(n) = O(n^{c})$  then $T(n) = O(n^{c}\logn)$
+  \item $f(n) = O(n^{c - \epsilon})$, then $T(n) = O(f(n))$
+\end{enumerate}
+
+\begin{remark}
+  when $f(n) = \Theta(n)$, we will split the cases by checking c $>1$, c $= 1$ and c $<1$
+\end{remark}
+\newline
+
+\pvocab{Proof}
+when $f(n) = O(n)$
+\begin{enumerate}
+  \item 
+    \begin{align*}
+      T(n) &\le  aT(\frac{n}{b}) + f(n)\\
+           &= a \cdot (T(\frac{n}{b^2})+ \cdot (\frac{n}{b})) + f(n) \\
+           &=  \ldots \\
+           &= a^{i}T(1) + a^{i-1} (\frac{n}{b^{i}}) + \ldots + kn\\
+           &=  n^{c} + kn\sum^{\log_b(n)-1}_{i=0}(\frac{a}{b})^{i} && \texttt{case 1: $c > 1$} \\
+           &= n^{c} + kn \cdot  \frac{(\frac{a}{b})^{\log_bn} - 1}{\frac{a}{b}-1} \\
+           &\le n^{c} + kn \cdot  \frac{(\frac{a}{b})^{\log_bn} }{\frac{a}{b}-1} \\
+           &=  n^{c} + k\cdot \frac{n^{\log_ba}}{\frac{a}{b}-1} \\
+           &=  O(n^{c}) \\
+    .\end{align*}
+  \item 
+\begin{align*} 
+      T(n) &\le  aT(\frac{n}{b}) + f(n)\\
+           &=  n + kn\sum^{\log_b(n)-1}_{i=0}(\frac{a}{b})^{i} && \texttt{case 2: $c = 1$} \\
+           &=  n + kn \cdot (\log_bn -1) \\
+           &=  O(n\log n)\\
+.\end{align*}
+\item
+  \begin{align*}
+       T(n) &\le  aT(\frac{n}{b}) + f(n)\\
+           &=  n^{c} + kn\sum^{\log_b(n)-1}_{i=0}(\frac{a}{b})^{i} && \texttt{case 3: $c < 1$} \\
+           &=  n^{c} + kn\cdot O(1)&&\texttt{decreasing geometric series} \\
+           &= O(n) \\
+  .\end{align*}
+\end{enumerate}
+
+\end{document}
+
