@@ -1,0 +1,116 @@
+%TEX root = 2024-03-10.tex
+\documentclass[../../main/main.tex]{subfiles}
+\begin{document}
+\subsection{Lecture 7 - Heapsort}
+priority queue
+\begin{enumerate}
+  \item insert min in $O(\log n)$
+  \item extract min in $O(\log n)$
+\end{enumerate}
+
+\begin{definition}
+  min-heap
+  \begin{enumerate}
+    \item children is as large as the parent
+    \item add new element to the next available position at the lowest level 
+  \end{enumerate}
+\end{definition}
+
+% \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}
+  \floatname{algorithm}{Algorithm}
+  \algrenewcommand\algorithmicrequire{\textbf{Input: }}
+  \algrenewcommand\algorithmicensure{\textbf{Output: }}
+  \caption{Extract min}\label{alg:}
+  \begin{algorithmic}[1]
+    \Require $A$
+    \Ensure $min$
+    \State $min \gets A[i]$
+    \State \Call{assign}{A[1],A[n]}
+    \State \Call{assign}{A[n],$\infty$}
+    \State $j \gets 1$
+    \State $l \gets A[2j]; r \gets A[2j+1]$
+    \While{$A[j] > min(A[l],A[r])$} \Comment{heapify}
+    \If{$l > r$}
+    \State \Call{swap}{A[j],A[2j]}
+    \State $j \gets 2j$
+    \Else
+    \State \Call{swap}{A[j],A[2j+1]}
+    \State $j \gets 2j+1$
+    \EndIf
+    \State $l \gets A[2j]; r \gets A[2j+1]$
+
+    \State \textbf{return} $min$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{definition}
+  heap-sort
+  \newline
+  build a binary heap and insert elements, extract min in $O(n\log n)$
+\end{definition}
+
+\begin{remark}
+  How to support decrease-key in $O(\log n)$?
+\end{remark}
+\subsection{Lecture 8 - Sorting in linear time}
+\begin{claim}
+  Properties of sorting
+  \begin{enumerate}
+    \item Comparison based sorting have $\Omega(n\log n)$
+    \item $h\ge \log n$
+  \end{enumerate}
+\end{claim}
+\subsubsection{Counting sort}
+% \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}[H]
+  \floatname{algorithm}{Algorithm}
+  \algrenewcommand\algorithmicrequire{\textbf{Input: }}
+  \algrenewcommand\algorithmicensure{\textbf{Output: }}
+  \caption{Counting sort}\label{alg:}
+  \begin{algorithmic}[1]
+    \Require $A,k$
+    \Ensure $B$
+    \State $C[0 \dots k] \gets 0$
+    \For{$i \gets 1$ to $n$}
+    \State $C[A[i]] \gets C[A[i]]+1$
+    \EndFor
+
+    \For{$i \gets 1$ to $k$}
+    \State $C[i] \gets C[i]+C[i-1]$
+    \EndFor
+
+    \For{$i \gets n$ to $1$}
+    \State $idx \gets C[A[i]]$
+    \State $B[idx] \gets A[i]$
+    \State $C[A[i]] \gets C[A[i]]-1$
+    \EndFor
+    \State \textbf{return} $B$
+  \end{algorithmic}
+\end{algorithm}
+
+\subsubsection{Radix sort}
+\begin{definition}[Radix sort]
+  use counting sort to sort digits from least significant to most significant
+\end{definition}
+
+\pvocab{Proof of correctness.}
+
+Assume we already sorted the lower digits $0\ldots k-1$. We need to sort the most significant digit. WLOG, suppose we have a digit d, by definition, all numbers
+with d as the k-th digit are sorted but not necessarily in continuous positions. Counting sort simply puts numbers with the same k-th digit in the continuous order. 
+
+\newline
+\pvocab{Run-time analysis.}
+
+Counting sort is run $d$ times and total run time is  $\Theta(d(n+k))}$
+
+\newline
+\pvocab{Decision model on list merging.}
+\begin{enumerate}
+  \item number of leafs = $k!$
+  \item number of possible permutations =  $(k!)^{\frac{n}{k}}$
+  \item height = $\log ((k!)^{\frac{n}{k}})$ = $\Theta(n\log k)$
+\end{enumerate}
+
+\end{document}
+
