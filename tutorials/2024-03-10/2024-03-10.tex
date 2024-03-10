@@ -36,6 +36,62 @@
 \end{enumerate}
 \subsection{Tutorial 5 - Selection and quick sort} 
 \begin{enumerate}
-  \item 
+  \item \begin{enumerate}
+    \item when $z_k$ is in between  $z_i$ and $z_j$,  the number of elements =  $j-i+1$. So the probability that $z_i$ or  $z_j$ is selected is $Pr[X_{ij} = 1]= \frac{2}{k-i+1} $
+  \item i and j are on the left side of the decision tree, the number of elements =  $k-i+1$. So the probability that $z_i$ or  $z_j$ is selected is $Pr[X_{ij} = 1]= \frac{2}{k-i+1} $
+    \item i and j are on the right side of the decision tree, the number of elements =  $k-j+1$. So the probability that $z_i$ or  $z_j$ is selected is $Pr[X_{ij} = 1]= \frac{2}{j-k+1} $
+  \end{enumerate}
+  \texttt{better answer: analyze case by case (i.e q1b, split to $t= i$ or $t= j, i < t<j, k\le t\le i$)}
+\item % \usepackage{algorithm,algorithmicx,algpseudocode}
+  \begin{enumerate}
+    \item  $\Theta(n^2)$
+  \item \begin{algorithm}[H]
+  \floatname{algorithm}{Algorithm}
+  \algrenewcommand\algorithmicrequire{\textbf{Input: }}
+  \algrenewcommand\algorithmicensure{\textbf{Output: }}
+  \caption{partition'}\label{alg:}
+  \begin{algorithmic}[1]
+    \Require $input$
+    \Ensure $output$
+    \State $i \gets \call{random}{p,r}$
+    \State $x \gets A[r]$
+    \State $i \gets p-1; k \gets p-1;$
+    \For{$j \gets p$ to $r-1$}
+    \If{$A[j] = x$}
+    \State $k \gets k+1$
+    \State \Call{swap}{$A[k]$, $A[j]$}
+    \ElsIf{$A[j] < x$}
+    \State $i \gets i+1$
+    \State $k \gets k+1$
+    \State \Call{swap}{$A[k]$, $A[j]$}
+    \State \Call{swap}{$A[i]$, $A[k]$}
+    \EndIf
+    \State \Call{swap}{$A[k+1], A[r]$}
+    \State \textbf{return} $state$
+  \end{algorithmic}
+\end{algorithm}
+\item % \usepackage{algorithm,algorithmicx,algpseudocode}
+\begin{algorithm}
+  \floatname{algorithm}{Algorithm}
+  \algrenewcommand\algorithmicrequire{\textbf{Input: }}
+  \algrenewcommand\algorithmicensure{\textbf{Output: }}
+  \caption{quicksort'}\label{alg:}
+  \begin{algorithmic}[1]
+    \Require $A,p,r$
+    \Ensure $A$
+    \If{$p \ge  r$}
+    \State \textbf{return} $A$
+    \EndIf
+    \State $q,t = \Call{partition'}{A,p,r}$
+    \State $l = \Call{quicksort'}{A,q-1}$
+    \State $r = \Call{quicksort'}{A,t+1}$
+    \State \textbf{return} $A$
+  \end{algorithmic}
+\end{algorithm}
+
+  \end{enumerate}
+
+\item key: $Pr[x_{i'j'}] \le  Pr[x_{ij}] \implies E[X']\le O(n\log n) $
 \end{enumerate}
+
 \end{document}
